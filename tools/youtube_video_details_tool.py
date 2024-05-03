@@ -1,8 +1,10 @@
-from typing import Type
+from typing import Type, List, Dict
 from crewai_tools import BaseTool
 from pydantic.v1 import BaseModel, Field
 import os
 import requests
+
+from youtube_transcript_api import YouTubeTranscriptApi
 
 
 class VideoDetails(BaseModel):
@@ -12,6 +14,7 @@ class VideoDetails(BaseModel):
     dislike_count: int
     comment_count: int
     channel_subscriber_count: int
+    transcript: List
 
 
 class YoutubeVideoDetailsToolInput(BaseModel):
@@ -28,10 +31,15 @@ class YoutubeVideoDetailsTool(BaseTool):
         api_key = os.getenv("YOUTUBE_API_KEY")
         url = "https://www.googleapis.com/youtube/v3/videos"
         params = {
-            "part": "snippet,statistics",
+            #"part": "snippet,statistics",
+            #"part": "snippet, statistics, contentDetails, fileDetails, liveStreamingDetails, player, status, topicDetails",
+            "part": "snippet, statistics, contentDetails",
             "id": video_id,
             "key": api_key
         }
+
+        # Docs: https://developers.google.com/youtube/v3/docs/videos
+
         response = requests.get(url, params=params)
         response.raise_for_status()
         item = response.json().get("items", [])[0]
@@ -54,6 +62,8 @@ class YoutubeVideoDetailsTool(BaseTool):
         channel_item = channel_response.json().get("items", [])[0]
         channel_subscriber_count = int(
             channel_item["statistics"]["subscriberCount"])
+        
+        transcript = YouTubeTranscriptApi.get_transcript(video_id)
 
         return VideoDetails(
             title=title,
@@ -61,5 +71,6 @@ class YoutubeVideoDetailsTool(BaseTool):
             like_count=like_count,
             dislike_count=dislike_count,
             comment_count=comment_count,
-            channel_subscriber_count=channel_subscriber_count
+            channel_subscriber_count=channel_subscriber_count,
+            transcript=transcript
         )

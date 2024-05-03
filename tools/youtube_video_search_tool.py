@@ -19,6 +19,10 @@ class YoutubeVideoSearchToolInput(BaseModel):
     keyword: str = Field(..., description="The search keyword.")
     max_results: int = Field(
         10, description="The maximum number of results to return.")
+    
+
+# Unlisted Bellingham City Council meetings
+# April 15 2024 - https://youtu.be/TMBmMb4ZwFc (https://meetings.cob.org/Meetings/ViewMeeting?id=3185&doctype=3)
 
 
 class YoutubeVideoSearchTool(BaseTool):
@@ -26,11 +30,14 @@ class YoutubeVideoSearchTool(BaseTool):
     description: str = "Searches YouTube videos based on a keyword and returns a list of video search results."
     args_schema: Type[BaseModel] = YoutubeVideoSearchToolInput
 
+    #Usage: https://developers.google.com/youtube/v3/docs/search/list
+
     def _run(self, keyword: str, max_results: int = 10) -> List[VideoSearchResult]:
         api_key = os.getenv("YOUTUBE_API_KEY")
         url = "https://www.googleapis.com/youtube/v3/search"
         params = {
             "part": "snippet",
+            "channelId": "UCT6BNyhyA0L6XJAe0PYVR8Q", # @COBMeetings"
             "q": keyword,
             "maxResults": max_results,
             "type": "video",

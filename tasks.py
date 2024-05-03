@@ -38,67 +38,12 @@ class YoutubeAutomationTasks():
                     - Video URL: https://www.youtube.com/watch?v=1234
 
                 ...
-                                    
-                # Potential High CTRO Titles:
-                - How to Make a YouTube Video
-                - How to Make a YouTube Video in 2021
-                - How to Make a YouTube Video for Beginners
-                [THE REST OF THE POTENTIAL HIGH CTRO TITLES GO HERE]
-                                    
-                # YouTube Video Description:
-                🤖 Download the CrewAI Source Code Here:
-                https://brandonhancock.io/crewai-updated-tutorial-hierarchical 
-
-                Don't forget to Like and Subscribe if you're a fan of free source code 😉
-
-                Ready to lead an AI revolution? Watch and learn how to build your own CrewAI from the ground up using the latest CrewAI features, and get set to deploy an army of AI agents at your command. This video is your ultimate guide to creating a powerful digital workforce, enhancing your projects with intelligent automation and streamlined workflows. Discover the secrets to customizing AI agents, setting them on tasks, and managing a smooth operation with CrewAI. It’s time to amplify your tech capabilities, and after this tutorial, you'll be equipped to engineer an AI crew that transforms any complex challenge into a simple task. Start your journey to AI mastery with CrewAI today!
-
-                📰 Stay updated with my latest projects and insights:
-                LinkedIn: https://www.linkedin.com/in/brandon-hancock-ai/
-                Twitter: https://twitter.com/bhancock_ai
-
-                Resources:
-                - https://github.com/joaomdmoura/crewAI-examples/
-                - https://www.crewai.io/
-                - https://twitter.com/joaomdmoura/status/1756428892045496608
-                - https://serper.dev/
-                
-                # Email Announcement:
-                
-                Subject: New CrewAI Tutorial: Learn How To Use the Latest CrewAI Features
-
-                Hey [FIRST NAME GOES HERE]!
-
-                Exciting update: CrewAI's new version is here, making it quicker and more dependable!
-
-                You loved our first CrewAI tutorial, so I just published a new one for you.
-
-                In this tutorial, you'll get up to speed with CrewAI's new features. We'll then apply these updates by building an AI Newsletter, demonstrating how to use what you've learned in a real project.
-
-                [VIDEO PREVIEW HERE]
-
-                Here's what's in store:
-
-                Learn to manage a team with CrewAI's new Hierarchical workflow.
-                Discover how asynchronous tasks can boost your efficiency.
-                Find out how the Expected Output feature ensures accuracy and reliability.
-                Plus, lots more insights!
-                Dive into the tutorial to explore CrewAI's enhanced functions:
-
-                [VIDEO PREVIEW HERE]
-
-                Questions or want to share how you're doing? Email me or comment on YouTube.
-
-                Happy coding!
-
-                Cheers, 
-                Brandon Hancock
             """),
             agent=agent,
             output_file="output/YouTube_Video_Creation_Report.txt",
             expected_output=dedent(f"""
                 Generate a report that is formatted exactly like the example report provided to you earlier.
-                Make sure the report contains 15 videos, 10 potential high CTRO titles, a YouTube video description, and an email newsletter update about the new video.
+                Make sure the report contains 15 videos, a YouTube video description, and an email newsletter update about the new video.
                 The researched video should have all the required details and valid URLs.
             """)
         )
@@ -106,7 +51,7 @@ class YoutubeAutomationTasks():
     def manage_youtube_video_research(self, agent, video_topic, video_details):
         return Task(
             description=dedent(f"""For a given video topic and description, search youtube videos to find 
-                15 high-performing YouTube videos on the same topic. Once you have found the videos, 
+                15 YouTube videos on the same topic. Once you have found the videos, 
                 research the YouTube video details to finish populate the missing fields in the 
                 research CSV. When delegating tasks to other agents, make sure you include the 
                 URL of the video that you need them to research.

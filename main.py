@@ -10,8 +10,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Initialize the OpenAI GPT-4 language model
-OpenAIGPT4 = ChatOpenAI(
-    model="gpt-4"
+OpenAIGPT = ChatOpenAI(
+    model="gpt-3.5-turbo" #"gpt-4"
 )
 
 agents = YoutubeAutomationAgents()
@@ -29,15 +29,10 @@ email_creator = agents.email_creator()
 
 # TODO: UPDATE THE VIDEO DETAILS - The purpose of this video is to talk about how I've automated my YouTube video creation process using CrewAI, cover new CrewAI features, and how to build custom CrewAI tools
 
-video_topic = "Automating Tasks Using CrewAI"
+video_topic = "City Council Regular Meeting"
 video_details = """
-In this video, we're diving into the innovative ways I'm using CrewAI to 
-automate my YouTube channel. From conducting thorough research to 
-streamline video preparation, CrewAI is revolutionizing how I create content. 
-But that's not all - I'm also exploring how to harness the power of CrewAI 
-to generate personalized emails for my subscribers. Join me on this journey 
-as I unlock the potential of AI to enhance my YouTube channel and connect 
-with my audience like never before.
+In this video, we're looking to analyze the Bellingham City Council Meetings for 2023-2024.
+This analysis will review key information from each council meeting and sumamrize the content and popularity
 """
 
 manage_youtube_video_creation = tasks.manage_youtube_video_creation(
@@ -71,13 +66,14 @@ create_email_announcement_for_new_video = tasks.create_email_announcement_for_ne
 crew = Crew(
     agents=[youtube_manager,
             research_manager,
-            email_creator,
+            #email_creator,
             ],
     tasks=[manage_youtube_video_creation,
            manage_youtube_video_research,
-           create_email_announcement_for_new_video],
+           #create_email_announcement_for_new_video
+           ],
     process=Process.hierarchical,
-    manager_llm=OpenAIGPT4
+    manager_llm=OpenAIGPT
 )
 
 # Kick of the crew

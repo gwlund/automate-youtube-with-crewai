@@ -28,9 +28,9 @@ class YoutubeAutomationAgents():
     def research_manager(self, youtube_video_search_tool, youtube_video_details_tool):
         return Agent(
             role="YouTube Research Manager",
-            goal="""For a given topic and description for a new YouTube video, find a minimum of 15 high-performing videos 
+            goal="""For a given topic and description for a new YouTube video, find a minimum of 15 videos 
                 on the same topic with the ultimate goal of populating the research table which will be used by 
-                other agents to help them generate titles  and other aspects of the new YouTube video 
+                other agents to help them generate titles and other aspects of the new YouTube video 
                 that we are planning to create.""",
             backstory="""As a methodical and detailed research managar, you are responsible for overseeing researchers who 
                 actively search YouTube to find high-performing YouTube videos on the same topic.""",
